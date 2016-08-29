@@ -118,7 +118,7 @@ class BibTeX:
 
         If the cite key already exists, append a number, then add
         '''
-        if entry.getCiteKey() not in [ent.getCiteKey() for ent in self.entries]:
+        if entry.getCiteKey() in [ent.getCiteKey() for ent in self.entries]:
             entry.setCiteKey(entry.getCiteKey() + '1')
         self.entries.append(entry)
 
