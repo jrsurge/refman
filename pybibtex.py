@@ -54,6 +54,14 @@ class BibTeX:
 
             self.addEntry(tmpEnt)
 
+    def write(self, path):
+        '''
+        Write existing database to file
+        '''
+        with open(path,'w') as f:
+            for entry in self.entries:
+                f.write(entry.toBibTeXString() + '\n\n')
+
     def Builder(self,entry):
         '''
         An interactive 'Builder' pattern function for initialising
