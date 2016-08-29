@@ -106,6 +106,26 @@ class BibTeX:
             ent = Booklet()
         elif entryType == 'conference':
             ent = Conference()
+        elif entryType == 'inbook':
+            ent = Inbook()
+        elif entryType == 'incollection':
+            ent = Incollection()
+        elif entryType == 'inproceedings':
+            ent = Inproceedings()
+        elif entryType == 'manual':
+            ent = Manual()
+        elif entryType == 'mastersthesis':
+            ent = MastersThesis()
+        elif entryType == 'misc':
+            ent = Misc()
+        elif entryType == 'phdthesis':
+            ent = PhDThesis()
+        elif entryType == 'proceedings':
+            ent = Proceedings()
+        elif entryType == 'techreport':
+            ent = TechReport()
+        elif entryType == 'unpublished':
+            ent = Unpublished()
 
         assert(ent != 0)
         return ent
@@ -293,3 +313,236 @@ class Conference(Entry):
 
     def optionalFields(self):
         return self.fields[4:]
+
+class Inbook(Entry):
+    def __init__(self):
+        Entry.__init__(self)
+
+        self._setType("inbook")
+
+        self._addField("title")
+        self._addField("author")
+        self._addField("chapter")
+        self._addField("pages")
+        self._addField("publisher")
+
+        self._addField("volume")
+        self._addField("series")
+        self._addField("address")
+        self._addField("edition")
+        self._addField("month")
+        self._addField("note")
+        self._addField("key")
+
+    def requiredFields(self):
+        return self.fields[:5]
+
+    def optionalFields(self):
+        return self.fields[5:]
+
+class Incollection(Entry):
+    def __init__(self):
+        Entry.__init__(self)
+
+        self._setType("incollection")
+
+        self._addField("title")
+        self._addField("author")
+        self._addField("booktitle")
+        self._addField("year")
+
+        self._addField("editor")
+        self._addField("pages")
+        self._addField("organization")
+        self._addField("publisher")
+        self._addField("address")
+        self._addField("month")
+        self._addField("note")
+        self._addField("key")
+
+    def requiredFields(self):
+        return self.fields[:4]
+
+    def optionalFields(self):
+        return self.fields[4:]
+
+class Inproceedings(Entry):
+    def __init__(self):
+        Entry.__init__(self)
+
+        self._setType("inproceedings")
+
+        self._addField("title")
+        self._addField("author")
+        self._addField("booktitle")
+        self._addField("year")
+
+        self._addField("editor")
+        self._addField("pages")
+        self._addField("organization")
+        self._addField("publisher")
+        self._addField("address")
+        self._addField("month")
+        self._addField("note")
+        self._addField("key")
+
+    def requiredFields(self):
+        return self.fields[:4]
+
+    def optionalFields(self):
+        return self.fields[4:]
+
+class Manual(Entry):
+    def __init__(self):
+        Entry.__init__(self)
+
+        self._setType("manual")
+
+        self._addField("title")
+
+        self._addField("author")
+        self._addField("organization")
+        self._addField("address")
+        self._addField("edition")
+        self._addField("month")
+        self._addField("year")
+        self._addField("note")
+        self._addField("key")
+
+    def requiredFields(self):
+        return self.fields[:1]
+
+    def optionalFields(self):
+        return self.fields[1:]
+
+class MastersThesis(Entry):
+    def __init__(self):
+        Entry.__init__(self)
+
+        self._setType("mastersthesis")
+
+        self._addField("title")
+        self._addField("author")
+        self._addField("school")
+        self._addField("year")
+
+        self._addField("address")
+        self._addField("month")
+        self._addField("note")
+        self._addField("key")
+
+    def requiredFields(self):
+        return self.fields[:4]
+
+    def optionalFields(self):
+        return self.fields[4:]
+
+class Misc(Entry):
+    def __init__(self):
+        Entry.__init__(self)
+
+        self._setType("misc")
+
+        self._addField("title")
+        self._addField("author")
+        self._addField("howpublished")
+        self._addField("month")
+        self._addField("year")
+        self._addField("note")
+        self._addField("key")
+
+    def requiredFields(self):
+        return []
+
+    def optionalFields(self):
+        return self.fields
+
+class PhDThesis(Entry):
+    def __init__(self):
+        Entry.__init__(self)
+
+        self._setType("phdthesis")
+
+        self._addField("title")
+        self._addField("author")
+        self._addField("school")
+        self._addField("year")
+
+        self._addField("address")
+        self._addField("month")
+        self._addField("note")
+        self._addField("key")
+
+    def requiredFields(self):
+        return self.fields[:4]
+
+    def optionalFields(self):
+        return self.fields[4:]
+
+class Proceedings(Entry):
+    def __init__(self):
+        Entry.__init__(self)
+
+        self._setType("proceedings")
+
+        self._addField("title")
+        self._addField("year")
+
+        self._addField("editor")
+        self._addField("publisher")
+        self._addField("organization")
+        self._addField("address")
+        self._addField("month")
+        self._addField("note")
+        self._addField("key")
+
+    def requiredFields(self):
+        return self.fields[:2]
+
+    def optionalFields(self):
+        return self.fields[2:]
+
+
+class TechReport(Entry):
+    def __init__(self):
+        Entry.__init__(self)
+
+        self._setType("techreport")
+
+        self._addField("title")
+        self._addField("author")
+        self._addField("institution")
+        self._addField("year")
+
+        self._addField("type")
+        self._addField("number")
+        self._addField("address")
+        self._addField("month")
+        self._addField("note")
+        self._addField("key")
+
+    def requiredFields(self):
+        return self.fields[:4]
+
+    def optionalFields(self):
+        return self.fields[4:]
+
+class Unpublished(Entry):
+    def __init__(self):
+        Entry.__init__(self)
+
+        self._setType("unpublished")
+
+        self._addField("title")
+        self._addField("author")
+        self._addField("note")
+
+        self._addField("month")
+        self._addField("year")
+        self._addField("key")
+
+    def requiredFields(self):
+        return self.fields[:3]
+
+    def optionalFields(self):
+        return self.fields[3:]
