@@ -14,10 +14,9 @@ def main():
 
     doc.parse("test.bib")
 
-    # The entries accessor is a temporary cheat - nothing is private in Python
-    for entry in doc.entries:
-        print("\n" + entry.toBibTeXString())
+    doc.addNewEntry("booklet")
 
+    doc.write("test.bib")
 
 if __name__ == '__main__':
     main()
