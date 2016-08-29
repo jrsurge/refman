@@ -170,8 +170,10 @@ class Entry:
 
     def setField(self, key, newValue):
         for ind, [k,v] in enumerate(self.fields):
-            if k == key and v != newValue:
-                self.fields[ind][1] = newValue
+            if k == key:
+                if v != newValue:
+                    self.fields[ind][1] = newValue
+                break
         return self
 
     def setCiteKey(self, newKey):
