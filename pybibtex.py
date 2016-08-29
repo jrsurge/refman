@@ -19,11 +19,40 @@ class BibTeX:
     def __init__(self):
         self.entries = []
 
-    def initFromDoc(self, path):
+    def parse(self, path):
         '''
-         'Parses' from file..
+        Parse from a file
+
+        This assumes a valid BibTeX file, and doesn't check for missing requiredFields - if you
+        want to break format, you can add strange entries manually this way and void checking
         '''
-        return
+        # make sure we're starting again
+        self.entries = []
+
+        rawdoc = ""
+        with open(path, 'r') as f:
+            rawdoc = f.read()
+
+        # minimise doc
+        rawdoc = rawdoc.replace('\n','').replace('\t','').replace('  ','').replace('    ','')
+
+        # split on @ and ignore anything with a %
+        ents = [x for x in rawdoc.split("@") if '%' not in x]
+
+        # create all the entries - prepare for some Python oneliner voodoo..
+        for ent in ents:
+            data = ent.split("{",1)
+
+            tmpEnt = self.Factory(data[0])
+            tmpEnt.setCiteKey(data[1].split(',', 1)[0])
+
+            flds = [ x.split('={') for x in data[1].split(',',1)[1].split('},') ]
+            flds[-1][-1] = flds[-1][-1].replace('}}','')
+
+            for k, v in flds:
+                tmpEnt.setField(k, v)
+
+            self.addEntry(tmpEnt)
 
     def Builder(self,entry):
         '''
@@ -86,7 +115,11 @@ class BibTeX:
     def addEntry(self, entry):
         '''
         Adds an existing Entry instance to the database
+
+        If the cite key already exists, append a number, then add
         '''
+        if entry.getCiteKey() not in [ent.getCiteKey() for ent in self.entries]:
+            entry.setCiteKey(entry.getCiteKey() + '1')
         self.entries.append(entry)
 
 
@@ -145,7 +178,7 @@ class Entry:
         bibString = "@{}{}{},\n".format(self.type, "{", self.citekey)
 
         for key, value in [x for x in self.fields if x[1] != ""]:
-            bibString += "{}={}{}{},\n".format(key,"{", value, "}")
+            bibString += "    {}={}{}{},\n".format(key,"{", value, "}")
 
         bibString = bibString[:-2]
         bibString += "\n}"

@@ -12,11 +12,12 @@ def main():
 
     doc = BibTeX.BibTeX()
 
-    doc.addNewEntry("booklet")
+    doc.parse("test.bib")
 
     # The entries accessor is a temporary cheat - nothing is private in Python
     for entry in doc.entries:
         print("\n" + entry.toBibTeXString())
+
 
 if __name__ == '__main__':
     main()
