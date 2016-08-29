@@ -6,7 +6,7 @@ pybibtex.py
 This file was created as part of RefMan - an interactive command line tool for
 managing and querying simple BibTeX databases
 
-This code is by no means bulletproof - it was never designed to be
+Copyright (c) James Surgenor 2016
 '''
 
 class BibTeX:
@@ -175,6 +175,11 @@ class Entry:
                     self.fields[ind][1] = newValue
                 break
         return self
+
+    def getField(self, key):
+        for k, v in self.fields:
+            if k == key:
+                return v
 
     def setCiteKey(self, newKey):
         if self.citekey != newKey:
