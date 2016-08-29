@@ -36,8 +36,8 @@ class BibTeX:
         # minimise doc
         rawdoc = rawdoc.replace('\n','').replace('\t','').replace('  ','').replace('    ','')
 
-        # split on @ and ignore anything with a %
-        ents = [x for x in rawdoc.split("@") if '%' not in x]
+        # split on @ and ignore anything that's empty or with a %
+        ents = [x for x in rawdoc.split("@") if x != '' and "%" not in x]
 
         # create all the entries - prepare for some Python oneliner voodoo..
         for ent in ents:
