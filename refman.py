@@ -7,6 +7,7 @@ Copyright (c) James Surgenor 2016
 '''
 
 import pybibtex as BibTeX
+import sys
 
 def addMode(document):
     leave = False
@@ -44,7 +45,15 @@ def findMode(document):
 def main():
     doc = BibTeX.BibTeX()
 
-    print("RefMan - an interactive commandline BibTeX management tool")
+    saveLoc = ""
+
+    print("\nRefMan - an interactive commandline BibTeX management tool")
+
+    if len(sys.argv) == 2:
+        doc.parse(sys.argv[1])
+        saveLoc = sys.argv[1]
+        print("\nLoaded: " + sys.argv[1])
+
 
     leave = False
     while not leave:
@@ -61,9 +70,11 @@ def main():
             print("Unknown - exiting safely")
             leave = True
 
-    save = raw_input("Save changes? (y/n):\n> ")
+    save = raw_input("Save changes? (y/N):\n> ")
     if save == 'y':
-        doc.write("tmp.bib")
+        while saveLoc == "":
+            saveLoc = raw_input("No save location known\nSave as:\n> ")
+        doc.write(saveLoc)
 
 if __name__ == '__main__':
     main()
